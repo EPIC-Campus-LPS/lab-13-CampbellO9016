@@ -13,6 +13,22 @@ public class Euclid {
 		System.out.println(sumDigits(123)); // 6
 		System.out.println(sumDigits(12345)); // 15
 		System.out.println(sumDigits(954736163)); // 44
+		
+		System.out.println();
+		
+		System.out.println(binarySearch(new int[]{1, 3, 5, 7, 9, 11, 13}, 7)); // 3
+		System.out.println(binarySearch(new int[]{2, 4, 6, 8, 10}, 6)); // 2
+		System.out.println(binarySearch(new int[]{42}, 42)); // 0
+		System.out.println(binarySearch(new int[]{10, 100, 1000, 10000, 100000}, 500)); // -1
+		
+		System.out.println(); 
+		
+		System.out.println(toBinary(0)); // 0
+		System.out.println(toBinary(1)); // 1
+		System.out.println(toBinary(5)); // 101
+		System.out.println(toBinary(10)); // 1010
+		System.out.println(toBinary(42)); // 101010
+
 	}
 	public static int gcd(int a, int b) {
 		if(b == 0) {
@@ -27,22 +43,42 @@ public class Euclid {
 		return sumDigits(n/10) + n%10;
 	}
 	public static int binarySearchHelp(int[] arr, int target, int low, int high) {
-		int mid = arr[high/2];
+		int tar = arr[(high+low)/2];
+		int mid = (high+low)/2;
 		
-		if(target == mid) {
-			return high/2;
+		if(target == tar) {
+			return (high+low)/2;
 		}
-		if(target> mid) {
+		else if(high - low == 0) {
+			return -1;
+		}
+		if(target> tar) {
 			low = mid+1;
 			return binarySearchHelp(arr, target, low, high);
 		}
-		return -1;
+		if(target< tar) {
+			high = mid-1;
+			return binarySearchHelp(arr, target, low, high);
+		}
+		else 
+			return -1;
+		
 	}
 	public static int binarySearch(int[] arr, int target) {
 		int low = 0;
 		int high = arr.length;
 		return binarySearchHelp(arr, target, low, high);
 	}
+	public static String toBinary(int n) {
+		if(n==0)
+			return "0";
+		if(n == 1) {
+			return "1";
+		}
+		else
+			return(toBinary(n/2)) + (n%2);
+	}
+	
 	
 
 }
